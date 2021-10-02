@@ -47,9 +47,7 @@ headerbar {
 
 // Reinsert tweaks
 headerbar {
-  @import 'tweaks/widgets-transitions.scss';
-  @import 'tweaks/green-levelbar.scss';
-  @import 'tweaks/green-suggested-buttons.scss'
+  @import 'tweaks.scss';
 }
 
 //
@@ -69,10 +67,8 @@ popover {
   @import 'widgets/entries';
 
   // Reinsert tweaks
-  @import 'tweaks/widgets-transitions.scss';
-  @import 'tweaks/green-levelbar.scss';
-  @import 'tweaks/green-suggested-buttons.scss';
+  @import 'tweaks.scss';
 }
 
 // Already have popover selector
-@import 'tweaks/popover-checks-transition-fix.scss';
+@import 'tweaks.scss';
