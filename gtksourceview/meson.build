@@ -1,5 +1,5 @@
 flavours = []
-foreach flavour: ['default', 'dark']
+foreach flavour: ['dark', 'light']
   if not get_option(flavour)
     message('skip flavour ' + flavour)
     continue

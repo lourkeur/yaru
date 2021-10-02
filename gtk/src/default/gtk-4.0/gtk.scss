@@ -6,6 +6,7 @@
 
 $variant: 'light';
 $contrast: 'normal';
+$ambiance: false;
 
 @import 'palette';
 @import 'defaults';
@@ -16,3 +17,4 @@ $contrast: 'normal';
 @import 'common';
 @import 'compat-colors';
 @import 'tweaks';
+@import 'inverted-headerbar'; // ⚠ Must be in last position for the third, mixed theme variant
