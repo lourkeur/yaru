@@ -1,4 +1,4 @@
-# Yaru mixed theme
+# Yaru Classic theme
 
 This is a fork of [Yaru] to keep the original dark headerbar theme that was
 removed upstream in 21.10.1.
@@ -14,7 +14,7 @@ theme as much as I do, you will have to overlook those.
 
 ## Installing
 
-Yaru Mixed is available in the [NUR] under `repos.lourkeur.yaru-mixed`.
+Yaru Classic is available in the [NUR] under `repos.lourkeur.yaru-classic`.
 
 When I get time to figure out snaps, I will offer one.  Or a `.deb` if that turns
 out to be more appropriate.  In the meantime, you will have to run `bootstrap.sh`.

@@ -14,7 +14,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "yaru-mixed";
+  pname = "yaru-classic";
   version = "unstable";
 
   src = ./.;
