@@ -1,12 +1,10 @@
-$headerbar_border_opacity: if($contrast == 'high', .5, .15);
-
 headerbar {
   min-height: 47px;
   background-color: $headerbar_bg_color;
   color: $headerbar_fg_color;
-  box-shadow: inset 0 -1px gtkalpha($headerbar_border_color, $headerbar_border_opacity),
-              inset  1px 0 gtkalpha($headerbar_border_color, $headerbar_border_opacity),
-              inset -1px 0 gtkalpha($headerbar_border_color, $headerbar_border_opacity);
+  box-shadow: inset 0 -1px $headerbar_border_color,
+              inset  1px 0 $headerbar_border_color,
+              inset -1px 0 $headerbar_border_color;
 
   margin-left: -1px;
   margin-right: -1px;
@@ -24,7 +22,7 @@ headerbar {
   }
 
   &:backdrop {
-    background-color: $bg_color;
+    background-color: $headerbar_backdrop_color;
 
     transition: $backdrop_transition;
 
@@ -44,11 +42,15 @@ headerbar {
     }
 
     windowcontrols {
-      button {
+      > button {
         min-height: 22px;
         min-width: 22px;
         margin: 0;
         padding: 4px;
+      }
+
+      > .icon {
+        margin: 7px;
       }
     }
   }
@@ -81,7 +83,7 @@ headerbar {
 }
 
 .titlebar:not(headerbar) {
-  separator { background-color: $borders_color; }  // FIXME: use darker border?
+  separator { background-color: $headerbar_border_color; }
 }
 
 /*********************
@@ -91,7 +93,7 @@ headerbar {
 windowcontrols {
   border-spacing: 3px;
 
-  button {
+  > button {
     min-width: 24px;
     padding: 5px;
     margin: 0;
@@ -103,7 +105,7 @@ windowcontrols {
       padding: 2px;
       transition: $button_transition;
       @if $contrast == 'high' {
-        box-shadow: inset 0 0 0 1px $borders_color;
+        box-shadow: inset 0 0 0 1px $border_color;
       }
     }
 
@@ -113,6 +115,10 @@ windowcontrols {
 
     &:hover > image { background-color: $button_hover_color; }
     &:hover:active > image { background-color: $button_active_color; }
+  }
+
+  > .icon {
+    margin: 9px;
   }
 }
 
