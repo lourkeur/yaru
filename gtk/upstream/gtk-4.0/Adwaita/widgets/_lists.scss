@@ -1,9 +1,9 @@
 listview,
 list {
-  color: $text_color;
-  background-color: $base_color;
+  color: $view_fg_color;
+  background-color: $view_bg_color;
   background-clip: padding-box;
-  border-color: $borders_color;
+  border-color: $border_color;
 
   > row {
     padding: 2px;
@@ -15,39 +15,44 @@ list {
 
   &.horizontal row.separator,
   &.separators.horizontal > row:not(.separator) {
-    border-left: 1px solid $borders_color;
+    border-left: 1px solid $border_color;
   }
 
   &:not(.horizontal) row.separator,
   &.separators:not(.horizontal) > row:not(.separator) {
-    border-bottom: 1px solid $borders_color;
+    border-bottom: 1px solid $border_color;
   }
 }
 
 row {
   @include focus-ring();
 
+  .osd &:focus:focus-visible {
+    outline-color: $osd_focus_color;
+  }
+
   background-clip: padding-box;
 
   &.activatable {
-    &.has-open-popup, // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411
     &:hover { background-color: $view_hover_color; }
 
     &:active { background-color: $view_active_color; }
 
+    // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411
+    &.has-open-popup { background-color: $view_hover_color; }
+
     &:selected {
-      &.has-open-popup,
       &:hover { background-color: $view_selected_hover_color; }
 
       &:active { background-color: $view_selected_active_color; }
+
+      &.has-open-popup { background-color: $view_selected_hover_color; }
     }
   }
 
   &:selected {
     background-color: $view_selected_color;
   }
-
-  &:disabled { color: gtkalpha(currentColor, .55); }
 }
 
 /*******************************************************
@@ -82,9 +87,14 @@ row {
     margin-right: 12px;
     min-height: 50px;
 
+    > .icon:disabled {
+      filter: opacity($disabled_opacity);
+    }
+
     > box.title {
-      margin-top: 8px;
-      margin-bottom: 8px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+      border-spacing: 3px;
     }
   }
 }
@@ -93,43 +103,26 @@ row {
  * AdwComboRow *
  ***************/
 
-popover.background.combo > contents {
-  padding: 0px;
+row.combo {
+  image.dropdown-arrow:disabled {
+    filter: opacity($disabled_opacity);
+  }
 
-  list, listview {
-    border-style: none;
-    background-color: transparent;
-    min-width: 200px;
+  listview.inline {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: inherit;
 
-    > row {
-      padding: 0px 12px 0px 12px;
-      min-height: 50px;
-      border-bottom: 1px solid $borders_color;
-
-      &:first-child {
-        border-top-left-radius: $popover_radius - 2;
-        border-top-right-radius: $popover_radius - 2;
-      }
-
-      &:last-child {
-        border-bottom-left-radius: $popover_radius - 2;
-        border-bottom-right-radius: $popover_radius - 2;
-        border-bottom: none;
-      }
+    &, &:disabled {
+      background: none;
+      color: inherit;
     }
   }
 
-  scrollbar.vertical {
-    padding-top: 2px;
-    padding-bottom: 2px;
+  popover > contents {
+    min-width: 120px;
   }
-}
-
-listview.inline {
-  background: none;
-  border: none;
-  box-shadow: none;
-  color: inherit;
 }
 
 /******************
@@ -147,17 +140,26 @@ listview.inline {
 }
 
 %boxed_list_row {
+  @include focus-ring($offset: -1px);
+
+  .osd &:focus:focus-visible {
+    outline-color: $osd_focus_color;
+  }
+
   transition: 200ms $ease-out-quad;
-  border-bottom: 1px solid $borders_color;
+  border-bottom: 1px solid $border_color;
 
   &:not(:selected).activatable {
-    &.has-open-popup,
     &:hover {
       background-color: gtkalpha(currentColor, .03);
     }
 
     &:active {
       background-color: gtkalpha(currentColor, .08);
+    }
+
+    &.has-open-popup {
+      background-color: gtkalpha(currentColor, .03);
     }
   }
 }
@@ -174,7 +176,7 @@ row.expander {
   }
 
   list.nested {
-    background-color: gtkalpha(currentColor, .03);
+    background-color: gtkalpha($card_shade_color, .5);
     color: inherit;
   }
 
@@ -209,21 +211,23 @@ row.expander {
     color: $accent_color;
   }
 
-  & image.expander-row-arrow:disabled {
-    filter: opacity(.5);
+  .osd &:checked image.expander-row-arrow:not(:disabled) {
+    color: inherit;
+  }
+
+  image.expander-row-arrow:disabled {
+    filter: opacity($disabled_opacity);
   }
 }
 
 /*****************
- * Content Lists *
+ * Boxed Lists *
  *****************/
 
+// Deprecated: use .boxed-list instead
 list.content,
-listview.content {
-  background-color: $base_color;
-  color: $text_color;
-  border: 1px solid $borders_color;
-  border-radius: 8px;
+list.boxed-list {
+  @extend %card;
 
   > row {
     // Regular rows and expander header rows background
@@ -238,8 +242,8 @@ listview.content {
     // Rounded top
     &:first-child {
       &, &.expander row.header {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        border-top-left-radius: $card_radius;
+        border-top-right-radius: $card_radius;
       }
     }
 
@@ -250,8 +254,8 @@ listview.content {
       &.expander:not(:checked) row.header,
       &.expander:checked list.nested,
       &.expander:checked list.nested > row:last-child {
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: $card_radius;
+        border-bottom-right-radius: $card_radius;
         border-bottom-width: 0;
       }
     }

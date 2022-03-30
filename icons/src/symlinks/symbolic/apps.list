@@ -11,6 +11,7 @@ address-book-app-symbolic.svg x-office-address-book-symbolic.svg
 aptdaemon-download-symbolic.svg synaptic-symbolic.svg
 backups-app-symbolic.svg deja-dup-symbolic.svg
 backups-app-symbolic.svg org.gnome.DejaDup-symbolic.svg
+backups-app-symbolic.svg timeshift-symbolic.svg
 baobab-symbolic.svg org.gnome.baobab-symbolic.svg
 calculator-app-symbolic.svg accessories-calculator-symbolic.svg
 calculator-app-symbolic.svg gnome-calculator-symbolic.svg
@@ -19,6 +20,7 @@ calendar-app-symbolic.svg calendar-symbolic.svg
 calendar-app-symbolic.svg gnome-calendar-symbolic.svg
 calendar-app-symbolic.svg office-calendar-symbolic.svg
 calendar-app-symbolic.svg org.gnome.Calendar-symbolic.svg
+calendar-app-symbolic.svg org.gnome.Calendar.Devel-symbolic.svg
 camera-app-symbolic.svg accessories-camera-symbolic.svg
 camera-app-symbolic.svg cheese-symbolic.svg
 camera-app-symbolic.svg org.gnome.Cheese-symbolic.svg
@@ -35,6 +37,7 @@ documents-app-symbolic.svg gnome-documents-symbolic.svg
 documents-app-symbolic.svg org.gnome.Documents-symbolic.svg
 evince-symbolic.svg org.gnome.Evince-symbolic.svg
 error-app-symbolic.svg apport-symbolic.svg
+extensions-symbolic.svg org.gnome.Shell.Extensions-symbolic.svg
 filemanager-app-symbolic.svg system-file-manager-symbolic.svg
 file-roller-symbolic.svg org.gnome.ArchiveManager-symbolic.svg
 gallery-app-symbolic.svg gnome-photos-symbolic.svg
@@ -48,6 +51,7 @@ help-app-symbolic.svg gnome-help-symbolic.svg
 help-app-symbolic.svg help-browser-symbolic.svg
 help-app-symbolic.svg help-contents-symbolic.svg
 help-app-symbolic.svg help-faq-symbolic.svg
+help-app-symbolic.svg help-link-symbolic.svg
 help-app-symbolic.svg help-symbolic.svg
 help-app-symbolic.svg org.gnome.Yelp-symbolic.svg
 help-app-symbolic.svg system-help-symbolic.svg
@@ -60,10 +64,12 @@ log-viewer-app-symbolic.svg org.gnome.Logs-symbolic.svg
 mail-app-symbolic.svg internet-mail-symbolic.svg
 maps-app-symbolic.svg gnome-maps-symbolic.svg
 maps-app-symbolic.svg org.gnome.Maps-symbolic.svg
+mediaplayer-app-symbolic.svg io.github.celluloid_player.Celluloid-symbolic.svg
 mediaplayer-app-symbolic.svg multimedia-video-player-symbolic.svg
 mediaplayer-app-symbolic.svg org.gnome.Totem-symbolic.svg
 mediaplayer-app-symbolic.svg totem-symbolic.svg
 messaging-app-symbolic.svg internet-chat-symbolic.svg
+messaging-app-symbolic.svg sm.puri.Chatty-symbolic.svg
 music-app-symbolic.svg gnome-music-symbolic.svg
 music-app-symbolic.svg multimedia-audio-player-symbolic.svg
 music-app-symbolic.svg org.gnome.Music-symbolic.svg
@@ -72,14 +78,12 @@ packages-app-symbolic.svg system-software-install-symbolic.svg
 passwords-app-symbolic.svg seahorse-symbolic.svg
 passwords-app-symbolic.svg org.gnome.seahorse.Application-symbolic.svg
 power-statistics-symbolic.svg org.gnome.PowerStats-symbolic.svg
+preferences-desktop-locale-symbolic.svg webpage-symbolic.svg
 preferences-system-power-symbolic.svg gnome-power-manager-symbolic.svg
-preferences-desktop-online-accounts-symbolic.svg goa-panel-symbolic.svg
-remmina-symbolic.svg org.remmina.Remmina-symbolic.svg
 rhythmbox-symbolic.svg org.gnome.Rhythmbox-symbolic.svg
 root-terminal-app-symbolic.svg gksu-root-terminal-symbolic.svg
 screenshot-app-symbolic.svg applets-screenshooter-symbolic.svg
 screenshot-app-symbolic.svg gnome-screenshot-symbolic.svg
-session-properties-symbolic.svg org.gnome.Settings-multitasking-symbolic.svg
 scanner-symbolic.svg org.gnome.SimpleScan-symbolic.svg
 software-properties-symbolic.svg software-properties-gtk-symbolic.svg
 software-store-symbolic.svg software-center-symbolic.svg
@@ -95,12 +99,16 @@ system-monitor-app-symbolic.svg utilities-system-monitor-symbolic.svg
 system-monitor-app-symbolic.svg gnome-system-monitor-symbolic.svg
 system-monitor-app-symbolic.svg htop-symbolic.svg
 system-monitor-app-symbolic.svg org.gnome.SystemMonitor-symbolic.svg
+system-settings-symbolic.svg applications-system-symbolic.svg
 system-settings-symbolic.svg gnome-control-center-symbolic.svg
 system-settings-symbolic.svg preferences-desktop-symbolic.svg
 system-settings-symbolic.svg preferences-system-symbolic.svg
 system-settings-symbolic.svg org.gnome.Settings-symbolic.svg
+system-users-symbolic.svg community-symbolic.svg
 system-users-symbolic.svg config-users-symbolic.svg
 system-users-symbolic.svg system-switch-user-symbolic.svg
+system-users-symbolic.svg system-switch-user-rtl-symbolic.svg
+system-users-symbolic.svg system-switch-user-symbolic-rtl.svg
 terminal-app-symbolic.svg bash-symbolic.svg
 terminal-app-symbolic.svg gnome-terminal-symbolic.svg
 terminal-app-symbolic.svg terminal-symbolic.svg
@@ -111,6 +119,7 @@ tweaks-app-symbolic.svg gnome-tweak-tool-symbolic.svg
 tweaks-app-symbolic.svg org.gnome.tweaks-symbolic.svg
 tweaks-app-symbolic.svg org.gnome.Tweaks-symbolic.svg
 tweaks-app-symbolic.svg unity-tweak-tool-symbolic.svg
+usage-app-symbolic.svg org.gnome.Usage-symbolic.svg
 weather-app-symbolic.svg gnome-weather-symbolic.svg
 weather-app-symbolic.svg org.gnome.Weather.Application-symbolic.svg
 weather-app-symbolic.svg org.gnome.Weather-symbolic.svg
