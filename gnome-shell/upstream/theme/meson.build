@@ -30,13 +30,13 @@ theme_sources = files([
   'gnome-shell-sass/widgets/_panel.scss',
   'gnome-shell-sass/widgets/_popovers.scss',
   'gnome-shell-sass/widgets/_screen-shield.scss',
+  'gnome-shell-sass/widgets/_screenshot.scss',
   'gnome-shell-sass/widgets/_scrollbars.scss',
   'gnome-shell-sass/widgets/_search-entry.scss',
   'gnome-shell-sass/widgets/_search-results.scss',
   'gnome-shell-sass/widgets/_slider.scss',
   'gnome-shell-sass/widgets/_switcher-popup.scss',
   'gnome-shell-sass/widgets/_switches.scss',
-  'gnome-shell-sass/widgets/_tiled-previews.scss',
   'gnome-shell-sass/widgets/_window-picker.scss',
   'gnome-shell-sass/widgets/_workspace-switcher.scss',
   'gnome-shell-sass/widgets/_workspace-thumbnails.scss'
@@ -49,7 +49,6 @@ stylesheets = [
 
 foreach stylesheet: stylesheets
   if not fs.exists(stylesheet)
-    sassc = find_program('sassc')
     theme_deps += custom_target(stylesheet,
                                 input: fs.replace_suffix(stylesheet, '.scss'),
                                 output: stylesheet,

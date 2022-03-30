@@ -9,11 +9,11 @@ $ambiance: true;
 
 // Fix for window light background overflow on top corners of the inverted headerbar
 window.background.csd {
-  background-image: linear-gradient(to bottom, $bg_color $window_radius, $light_bg 1px);
+  background-image: linear-gradient(to bottom, #323030 $window_radius, #E5E5E5 1px);
 }
 
 headerbar {
-  color: $fg_color; // reinsert fg_color
+  color: #E5E5E5; // reinsert fg_color
 
   @import 'widgets/buttons';
   @import 'widgets/switch';
@@ -22,14 +22,14 @@ headerbar {
 }
 
 windowhandle separator.vertical {
-	background: $borders_color;
+	background: #E5E5E5;
 }
 
 @import 'widgets/header-bar';
 
 // Inverted headerbar tweaks
 headerbar {
-  box-shadow: inset 0 1px lighten($headerbar_bg_color, 6%); // Top highlight
+  box-shadow: inset 0 1px #E5E5E5; // Top highlight
 
   // Reinsert windowcontrols size tweak
   windowcontrols {

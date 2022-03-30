@@ -1,20 +1,18 @@
-popover.background.emoji-picker > contents {
+popover.emoji-picker > contents {
   padding: 0;
 }
 
 .emoji-searchbar {
   padding: 6px;
-  border-bottom: 1px solid $borders_color;
 }
 
 .emoji-toolbar {
   // flowbox children already have 3px padding, so we only need 3px more to
   // get the regular 6px. We also don't need spacing, for the same reason.
   padding: 3px;
-  border-top: 1px solid $borders_color;
 }
 
-button.emoji-section.image-button:not(.raised):not(.suggested-action):not(.destructive-action) {
+button.emoji-section.image-button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
   @extend %circular_button;
   @extend %button_basic_flat;
 
@@ -25,7 +23,7 @@ button.emoji-section.image-button:not(.raised):not(.suggested-action):not(.destr
 popover.emoji-picker emoji {
   font-size: x-large;
   padding: 6px;
-  border-radius: 6px;
+  border-radius: $button_radius;
 
   &:focus,
   &:hover {
@@ -37,9 +35,22 @@ popover.emoji-picker emoji {
   }
 }
 
+popover.emoji-picker scrolledwindow.view {
+  background: none;
+  color: inherit;
+
+  > undershoot.top {
+    box-shadow: inset 0 1px $border_color;
+  }
+
+  > undershoot.bottom {
+    box-shadow: inset 0 -1px $border_color;
+  }
+}
+
 // Emoji completion popover
 
-popover.background.emoji-completion > contents {
+popover.emoji-completion > contents {
   padding: $menu_margin;
   padding-bottom: $menu_margin - 2px;
 }
@@ -60,7 +71,7 @@ emoji-completion-row {
   &:focus,
   &:hover {
     background-color: $view_selected_color;
-    color: $text-color;
+    color: $view_fg_color;
 
     &:active {
       background-color: $view_active_color; // matching buttons
