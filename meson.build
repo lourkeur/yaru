@@ -1,12 +1,13 @@
 project('Yaru',
-        version: '22.04.2',
-        meson_version: '>= 0.58',
+        version: '22.04.4',
+        meson_version: '>= 0.59',
         license : ['GPL3', 'CC BY-SA 4.0'],
         default_options: ['prefix=/usr'])
 
 fs = import('fs')
 gnome = import('gnome')
 
+python = find_program('python3')
 sassc = find_program('sassc')
 
 subdir('common')
