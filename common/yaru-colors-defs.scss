@@ -5,19 +5,39 @@ $variant: if($yaru_is_dark_variant, 'dark', 'light');
 
 @import 'colors';
 
-$yaru_accent_active_color: $progress_bg_color;
-$yaru_accent_border_color: lighten($yaru_accent_active_color, 17%);
-$yaru_border_color: $borders_color;
-$yaru_accent_focused_color: if($variant == 'dark', darken($accent_bg_color, 7%), darken($accent_bg_color, 3%));
-$yaru_bg_color: if($variant == 'dark', lighten($bg_color, 2%), $porcelain);
-$yaru_disabled_bg_color: mix($bg_color, $fg_color, 80%);
-$yaru_switch_bg_color: if($variant == 'dark', lighten($inkstone, 5%), lighten($ash, 20%));
+$yaru_colors: (
+    bg-color: $bg_color,
+    accent-bg-color: $yaru_accent_bg_color,
+    accent-active-color: $progress_bg_color,
+    accent-focused-color: if($variant == 'dark', darken($accent_bg_color, 7%), darken($accent_bg_color, 3%)),
+    border-color: $borders_color,
+    disabled-bg-color: mix($bg_color, $fg_color, 80%),
+    switch-bg-color: if($variant == 'dark', lighten($inkstone, 5%), lighten($ash, 20%)),
+    check-bg-color: if($variant == 'dark', lighten($bg_color, 2%), $porcelain),
+);
 
-@define-color yaru_accent_bg_color #{"" + $yaru_accent_bg_color };
-@define-color yaru_accent_active_color #{"" + $yaru_accent_active_color };
-@define-color yaru_accent_border_color #{"" + $yaru_accent_border_color };
-@define-color yaru_border_color #{"" + $yaru_border_color };
-@define-color yaru_accent_focused_color #{"" + $yaru_accent_focused_color };
-@define-color yaru_bg_color #{"" + $yaru_bg_color };
-@define-color yaru_disabled_bg_color #{"" + $yaru_disabled_bg_color };
-@define-color yaru_switch_bg_color #{"" + $yaru_switch_bg_color };
+$yaru_colors: map-merge($yaru_colors, (
+    accent-border-color: lighten(map-get($yaru_colors, accent-active-color), 17%),
+));
+
+@function opaque-color($color, $background: $bg_color) {
+    @if alpha($color) == 1 {
+        @return $color;
+    }
+
+    $percent: alpha($color) * 100%;
+    $opaque: opacify($color, 1);
+    $solid-color: mix($opaque, $background, $percent);
+    @return $solid-color;
+}
+
+* {
+@each $name, $color in $yaru_colors {
+    -yaru-#{$name}: #{$color};
+
+    $opaque: opaque-color($color);
+    @if $opaque != $color {
+        -yaru-#{$name}-opaque: $opaque;
+    }
+}
+};
