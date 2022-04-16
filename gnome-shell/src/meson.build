@@ -17,7 +17,8 @@ INCLUDE_HIGH_CONTRAST_VARIANTS = false
 
 foreach accent: enabled_accent_colors
   if enabled_accent_colors.contains(accent)
-    variants += [ accent, accent + '-dark']
+    variants += (get_option('default') ? [accent] : [])
+    variants += (get_option('dark') ? [ accent + '-dark' ] : [])
   endif
 endforeach
 
@@ -40,9 +41,11 @@ assert(theme_sources.length() > 0, 'No theme sources found')
 theme_assets = files(
   run_command(
     'find', meson.current_source_dir(), '-maxdepth', '1',
-    '-name', '*.svg',
-    '-or',
-    '-name', '*.css'
+    '(',
+      '-name', '*.svg',
+      '-or',
+      '-name', '*.css',
+    ')',
   ).stdout().strip().split('\n')
 )
 
@@ -54,7 +57,7 @@ colorable_theme_assets = files(
 
 colorable_assets_names = []
 foreach asset: colorable_theme_assets
-  basename = '@0@'.format(asset).split('/')[-1]
+  basename = fs.name(asset)
   colorable_assets_names += basename
 endforeach
 
@@ -93,16 +96,11 @@ foreach variant: variants
   is_variant = variant != DEFAULT_VARIANT
   variant_base_name = is_dark ? variant.split('-dark')[0] : variant
   variant_suffix = is_variant ? '-@0@'.format(variant)  : ''
+  theme_full_name = meson.project_name() + variant_suffix
   is_custom_accent = enabled_accent_colors.contains(variant_base_name)
 
-  if gnomeshell_use_gresource
-    install_dir = join_paths(
-      gnomeshell_alt_themes_dir,
-      meson.project_name() + variant_suffix,
-      'gnome-shell')
-  else
-    install_dir = gnomeshell_theme_dir + variant_suffix
-  endif
+  install_theme_sources = not gnomeshell_user_themes_suport.disabled()
+  install_dir = gnomeshell_theme_dir + variant_suffix
 
   accent_configuration = {
     'yaru_dark_variant': is_dark ? 'true' : 'false',
@@ -134,7 +132,7 @@ foreach variant: variants
   )
 
   foreach colorable_asset: colorable_theme_assets
-    basename = '@0@'.format(colorable_asset).split('/')[-1]
+    basename = fs.name(colorable_asset)
 
     # We don't support other variants here...
     if is_variant and basename.endswith('-hc.svg') and not INCLUDE_HIGH_CONTRAST_VARIANTS
@@ -142,7 +140,7 @@ foreach variant: variants
     endif
 
     asset_target = custom_target(
-      basename + '-' + variant,
+      fs.stem(basename) + '-' + variant + '.svg',
       input: colorable_asset,
       output: '@BASENAME@-@0@.svg'.format(variant),
       command: [
@@ -153,7 +151,7 @@ foreach variant: variants
         '--variant', variant,
       ],
       depends: shell_yaru_colors_defs,
-      install: not gnomeshell_use_gresource,
+      install: install_theme_sources,
       install_dir: install_dir,
     )
     theme_gresource_files += asset_target.full_path()
@@ -209,7 +207,7 @@ foreach variant: variants
         '-I', css_sources_path,
         '-I', meson.project_source_root() / 'common',
       ],
-      install: is_variant or not gnomeshell_use_gresource,
+      install: install_theme_sources,
       install_dir: install_dir,
       depends: source_deps,
       depend_files: theme_sources + sass_utils_scss,
@@ -222,7 +220,7 @@ foreach variant: variants
   # This is an hack we need to remove once meson fixes this issue:
   #  https://github.com/mesonbuild/meson/issues/2320
   # by just making the style_css to have an output in the 'variant' subdir
-  if is_variant
+  if install_theme_sources and is_variant
     assert(output_styles.length() == variant_styles.length(), 'Output styles length mismatch')
     foreach i: range(output_styles.length())
       meson.add_install_script('bash', '-c',
@@ -232,10 +230,28 @@ foreach variant: variants
   endif
 
   # static files to copy
-  data_sources = gnomeshell_use_gresource ? [] : theme_assets
+  data_sources = install_theme_sources ? theme_assets : []
 
   # install static data files
   install_data(data_sources, install_dir: install_dir)
+
+  if install_theme_sources
+    if meson.version().version_compare('>= 0.61')
+      install_symlink('gnome-shell',
+        install_dir: gnomeshell_alt_themes_dir / theme_full_name,
+        # We could use a simpler definition, but that breaks $DESTDIR usage
+        # https://github.com/mesonbuild/meson/pull/10176
+        #pointing_to: get_option('prefix') / install_dir`
+        pointing_to: run_command(python, '-c',
+          'import os, sys; print(os.path.relpath(sys.argv[1], sys.argv[2]))',
+          install_dir,
+          gnomeshell_alt_themes_dir / theme_full_name
+        ).stdout().strip(),
+      )
+    else
+      meson.add_install_script('install-shell.sh', theme_full_name)
+    endif
+  endif
 endforeach
 
 if gnomeshell_use_gresource
@@ -280,10 +296,4 @@ if gnomeshell_use_gresource
     install: true,
     install_dir: gnomeshell_theme_dir,
   )
-else
-  # Symlink variants
-  foreach variant: variants
-    variant_suffix = (variant != DEFAULT_VARIANT) ? '-@0@'.format(variant)  : ''
-    meson.add_install_script('install-shell.sh', meson.project_name() + variant_suffix)
-  endforeach
 endif

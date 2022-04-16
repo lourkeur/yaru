@@ -27,6 +27,20 @@ DEFAULT_MIN_SIZE = 16
 DEFAULT_BIG_MIN_SIZE = 64
 DEFAULT_MAX_SIZE = 256
 
+CONTEXT_MAPPING = {
+    'apps': 'Applications',
+    'mimetypes': 'MimeTypes',
+    'panel': 'Status',
+    'ui': 'UI',
+}
+
+CUSTOM_PARAMETERS = {
+    'scalable/ui': {
+        'MinSize': 8,
+        'MaxSize': 512,
+    }
+}
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('theme_name')
@@ -39,6 +53,8 @@ if __name__ == '__main__':
     parser.add_argument('--output-name', default='index.theme')
     parser.add_argument('--filter', action='append', default=[])
     parser.add_argument('--exclude', action='append', default=[])
+    parser.add_argument('--exclude-directory', action='append', default=[])
+    parser.add_argument('--exclude-context', action='append', default=[])
 
     args = parser.parse_args()
     src_dir = os.path.join(os.path.abspath(args.source_dir))
@@ -65,21 +81,38 @@ if __name__ == '__main__':
 
         rel_path = os.path.relpath(icon, src_dir)
         [directory, _] = rel_path.rsplit('/', 1)
-        directories.add(directory)
+
+        if (directory not in args.exclude_directory and
+            directory.split('/')[-1] not in args.exclude_context):
+            directories.add(directory)
 
     theme['Icon Theme']['Directories'] = ','.join(directories)
 
     for dir in directories:
         [sizes, context] = dir.split('/')
         data = {
-            'Context': context.title(),
+            'Context': CONTEXT_MAPPING.get(context, context.title()),
         }
 
-        if '@' in dir:
+        if '@' in sizes:
             [sizes, scale] = sizes.split('@')
             data['Scale'] = scale[:-1]
 
-        if 'x' in sizes:
+        if sizes.startswith('scalable'):
+            data['Size'] = DEFAULT_MIN_SIZE
+            data['MinSize'] = DEFAULT_MIN_SIZE
+            data['MaxSize'] = DEFAULT_MAX_SIZE
+            data['Type'] = 'Scalable'
+
+            if 'max' in sizes:
+                data['MaxSize'] = sizes.rsplit('-', 1)[-1]
+                data['Size'] = min(int(data['Size']), int(data['MaxSize']))
+
+            if 'min' in sizes:
+                data['MinSize'] = sizes.rsplit('-', 1)[-1]
+                data['Size'] = max(int(data['Size']), int(data['MinSize']))
+
+        elif 'x' in sizes:
             [width, height] = sizes.split('x')
             assert width == height
             data['Size'] = width
@@ -90,13 +123,8 @@ if __name__ == '__main__':
                 data['Type'] = 'Scalable'
             else:
                 data['Type'] = 'Fixed'
-        else:
-            assert sizes == 'scalable'
-            data['Size'] = DEFAULT_MAX_SIZE
-            data['MinSize'] = DEFAULT_MIN_SIZE
-            data['MaxSize'] = DEFAULT_MAX_SIZE
-            data['Type'] = 'Scalable'
 
+        data.update(CUSTOM_PARAMETERS.get(dir, {}))
         theme[dir] = data
 
     output_file = os.path.join(args.output_dir, args.output_name)

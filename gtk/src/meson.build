@@ -18,11 +18,35 @@ foreach flavour: flavours
   base_theme_name = is_dark ? flavour.split('-dark')[0] : flavour
   is_accent = enabled_accent_colors.contains(base_theme_name)
   theme_dir = join_paths(get_option('datadir'), 'themes', theme_name)
+  accent = is_accent ? base_theme_name : ''
+
+  if is_accent
+    accent_configuration = {
+      'yaru_dark_variant': is_dark ? 'true' : 'false',
+      'yaru_accent_color': accent,
+    }
+
+    accent_info_css = configure_file(
+      configuration: accent_configuration + {
+        'yaru_theme_entry_point': '/dev/null',
+      },
+      input: accent_colors_definitions_scss,
+      output: '@0@-@1@-accent-color-info.scss'.format(theme_name, accent),
+    )
+
+    accent_color_code = run_command(sassc,
+      accent_info_css).stderr().split(' Accent color is ')[1].strip()
+    assert(accent_color_code.startswith('#'), 'No accent color code found')
+  endif
 
   conf_data = configuration_data()
   conf_data.set('ThemeName', meson.project_name())
   conf_data.set('FlavourThemeName', theme_name)
-  conf_data.set('IconThemeName', is_accent ? '-'.join(meson.project_name(), base_theme_name) : meson.project_name())
+  conf_data.set('IconThemeName', theme_name)
+  conf_data.set('MetacityThemeName', is_dark ? '-'.join(meson.project_name(), 'dark') : meson.project_name())
+  conf_data.set('DarkTheme', is_dark ? 'true' : 'false')
+  conf_data.set('AccentName', is_accent ? base_theme_name : 'default')
+  conf_data.set('AccentColor', is_accent ? accent_color_code : '')
   configure_file(input: 'index.theme.in',
     output: '@0@-index.theme'.format(theme_name),
     configuration: conf_data,
@@ -89,13 +113,22 @@ foreach flavour: flavours
         gtk_scss_path = base_path / variant_file + '.scss'
       endif
 
-      if is_accent
-          accent = base_theme_name
-          accent_configuration = {
-            'yaru_dark_variant': is_dark ? 'true' : 'false',
-            'yaru_accent_color': accent,
-          }
+      # Look for scss files in the variant dir first, otherwise fallback to
+      # base, default or upstream paths, so using reversed order
+      scss_paths = []
+      gtk_scss_dependencies = []
+      foreach src: sources_priority
+        scss_paths += ['-I', meson.current_source_dir() / src ]
 
+        scss_deps = run_command(
+          'find', src, '-name', '_*.scss'
+          ).stdout().strip().split('\n')
+        if scss_deps.length() > 0 and scss_deps[0] != ''
+          gtk_scss_dependencies += scss_deps
+        endif
+      endforeach
+
+      if is_accent
           gtk_accents_css = configure_file(
             configuration: accent_configuration + {
               'yaru_theme_entry_point': meson.current_source_dir() / gtk_scss_path,
@@ -118,34 +151,19 @@ foreach flavour: flavours
             target_name: custom_target(
               '@0@-yaru-colors-definitions'.format(target_name),
               input: gtk_yaru_colors_defs_scss,
-              output: '@BASENAME@.css'.format(variant),
+              output: '@BASENAME@.css',
               command: [
-                sassc, '-a', '@INPUT@', '@OUTPUT@',
-                '-I', css_sources_path / 'gnome-shell-sass',
+                sassc, '-a',
+                scss_paths,
+                '@INPUT@', '@OUTPUT@',
               ],
-              depends: source_deps,
               depend_files: [
                 yaru_colors_defs_scss,
-                theme_sources,
+                gtk_scss_dependencies,
               ]
             )
           }
       endif
-
-      # Look for scss files in the variant dir first, otherwise fallback to
-      # base, default or upstream paths, so using reversed order
-      scss_paths = []
-      gtk_scss_dependencies = []
-      foreach src: sources_priority
-        scss_paths += ['-I', meson.current_source_dir() / src ]
-
-        scss_deps = run_command(
-          'find', src, '-name', '_*.scss'
-          ).stdout().strip().split('\n')
-        if scss_deps.length() > 0 and scss_deps[0] != ''
-          gtk_scss_dependencies += scss_deps
-        endif
-      endforeach
 
       generated_css += custom_target(target_name,
         input: gtk_scss_path,

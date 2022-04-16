@@ -15,11 +15,11 @@
     } @else if $accent_color == 'blue' {
         $color: #0073E5;
     } @else if $accent_color == 'purple' {
-        $color: #8856EB;
+        $color: #7764D8;
     } @else if $accent_color == 'magenta' {
-        $color: #BC33DB;
+        $color: #B34CB3;
     } @else if $accent_color == 'red' {
-        $color: #E61D34;
+        $color: #DA3450;
     } @else {
         @error('No known accent color defined!');
     }
@@ -30,6 +30,7 @@
 $yaru_is_dark_variant: @yaru_dark_variant@;
 $yaru_accent_bg_color: get_accent_color('@yaru_accent_color@', $yaru_is_dark_variant);
 $accent_bg_color: $yaru_accent_bg_color;
+$accent_color: $yaru_accent_bg_color;
 @debug("Accent color is " + $yaru_accent_bg_color);
 
 @import '@yaru_theme_entry_point@'

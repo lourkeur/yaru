@@ -1,21 +1,61 @@
 name: Build CI test
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build-type: ['default', 'full']
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Pull Yaru
+      uses: actions/checkout@v3
+
+    - name: Check sources structure
+      run: |
+        # No symlinks should be in icons sources, they should be handled through lists
+        test -z "$(find icons/src/{fullcolor,scalable} -type l)"
 
     - name: Install dependencies
       run: |
         sudo apt install sassc python3-pip
         sudo pip3 install meson ninja
 
-    - name: Build, Test and Install
+    - name: Configure Default
+      if: ${{ matrix.build-type == 'default' }}
       run: |
-        meson build -Dgnome-shell-gresource=true -Dmate=true -Dmate-dark=true -Dubuntu-unity=true -Dxfwm4=true -Dcinnamon-shell=true -Dcinnamon=true -Dcinnamon-dark=true
-        meson test -C build -v
-        ninja -C build install
+        meson _build
+
+    - name: Configure Full
+      if: ${{ matrix.build-type == 'full' }}
+      run: |
+        meson _build \
+          -Dauto_features=enabled \
+          -Dgnome-shell-gresource=true \
+          -Dmate=true \
+          -Dmate-dark=true \
+          -Dubuntu-unity=true \
+          -Dxfwm4=true \
+          -Dcinnamon-shell=true \
+          -Dcinnamon=true \
+          -Dcinnamon-dark=true
+
+    - name: Build
+      run: |
+        ninja -C _build
+
+    - name: Test
+      run: |
+        meson test -C _build
+
+    - name: Install
+      run: |
+        ninja -C _build install
+
+    - name: Archiving meson logs
+      uses: actions/upload-artifact@v3
+      with:
+        name: meson-logs-${{ matrix.build-type }}
+        path: _build/meson-logs
