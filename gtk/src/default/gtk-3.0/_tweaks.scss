@@ -102,14 +102,17 @@ button.titlebutton:not(.appmenu) {
   & {
     &.maximize, &.minimize {
       @include draw_circle($_close_button_color);
-      &, &:backdrop {
-        &:hover {
-          @include draw_circle(if($ambiance==true, lighten($inkstone, 7%), $_base_hover_color));
-        }
 
-        &:active {
-          @include draw_circle(if($ambiance==true, lighten($inkstone, 12%), $_base_active_color));
-        }
+      &:hover {
+        @include draw_circle(if($ambiance==true, lighten($inkstone, 7%), $_base_hover_color));
+      }
+
+      &:active {
+        @include draw_circle(if($ambiance==true, lighten($inkstone, 12%), $_base_active_color));
+      }
+
+      &:backdrop {
+        background: none;
       }
     }
 
@@ -136,14 +139,16 @@ button.titlebutton:not(.appmenu) {
     window.toolbox &.close { // Special selector to target unified window (see #2980)
       color: $fg_color;
 
-      &, &:backdrop {
-        &:hover {
-          @include draw_circle($_base_hover_color);
-        }
+      &:hover {
+        @include draw_circle($_base_hover_color);
+      }
 
-        &:active {
-          @include draw_circle($_base_active_color);
-        }
+      &:active {
+        @include draw_circle($_base_active_color);
+      }
+
+      &:backdrop {
+        background: none;
       }
     }
   }
@@ -482,4 +487,12 @@ scale:not(.marks-after) {
       }
     }
   }
+}
+
+// Fix for selected image
+// By default this use white, but as we use lighter bg_color
+// we need a darker selected background on light theme
+// and a lighter one on dark theme
+image:selected {
+  background: if($variant == 'light', darken($bg_color, 10%), lighten($bg_color, 10%));
 }

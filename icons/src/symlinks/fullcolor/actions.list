@@ -1,3 +1,4 @@
+address-book-new.png contact-new.png
 cancel.png gtk-cancel.png
 cancel.png button_cancel.png
 cancel.png dialog-cancel.png
@@ -7,6 +8,12 @@ cancel.png stock_no.png
 cancel.png stock_stop.png
 cancel.png gtk-stop.png
 cancel.png process-stop.png
+cancel.png window-close.png
+cancel.png application-exit.png
+cancel.png dialog-close.png
+cancel.png dialog-no.png
+cancel.png gtk-close.png
+cancel.png stock_close.png
 document-send.png blueman-send-file.png
 dialog-apply.png dialog-yes.png
 dialog-apply.png dialog-ok.png
@@ -26,6 +33,8 @@ document-open.png gtk-open.png
 document-print.png fileprint.png
 document-print.png gtk-print.png
 document-print.png stock_print.png
+document-print.png printer.png
+document-print.png printers.png
 document-print-preview.png gtk-print-preview.png
 document-print-preview.png stock_print-preview.png
 document-properties.png gtk-properties.png
@@ -94,19 +103,11 @@ system-shutdown.png gnome-shutdown.png
 system-shutdown.png gshutdown.png
 system-shutdown.png system-shut-down.png
 system-shutdown.png xfsm-shutdown.png
-window-close.png cancel.png
-window-close.png application-exit.png
-window-close.png dialog-close.png
-window-close.png dialog-no.png
-window-close.png dialog-cancel.png
-window-close.png button_cancel.png
-window-close.png gtk-close.png
-window-close.png stock_calc-cancel.png
-window-close.png stock_close.png
 zoom-in.png view-zoom-in.png
 zoom-in.png file-zoom-in.png
 zoom-in.png stock_zoom-in.png
 zoom-in.png gtk-zoom-in.png
+zoom-in.png zoom-best-fit.png
 zoom-out.png view-zoom-out.png
 zoom-out.png file-zoom-out.png
 zoom-out.png stock_zoom-out.png
