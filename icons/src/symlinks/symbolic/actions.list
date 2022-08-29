@@ -42,12 +42,14 @@ mail-reply-all-symbolic-rtl.svg mail-reply-all-rtl-symbolic-rtl.svg
 mail-reply-sender-symbolic-rtl.svg mail-reply-sender-rtl-symbolic.svg
 mail-reply-sender-symbolic.svg mail-forward-rtl-symbolic.svg
 mail-reply-sender-symbolic.svg mail-reply-symbolic.svg
+document-send-symbolic.svg adw-mail-send-symbolic.svg
 mail-send-symbolic-rtl.svg mail-sent-symbolic-rtl.svg
 marker-symbolic.svg mail-flag-symbolic.svg
 media-view-subtitles-symbolic.svg annotations-text-symbolic.svg
 multimedia-equalizer-symbolic.svg media-eq-symbolic.svg
 multimedia-equalizer-symbolic.svg org.gnome.Lollypop-equalizer-symbolic.svg
 object-select-symbolic.svg background-selected-symbolic.svg
+object-select-symbolic.svg adw-entry-apply-symbolic.svg
 scan-type-batch-symbolic.svg slideshow-symbolic.svg
 sidebar-show-right-symbolic.svg sidebar-show-rtl-symbolic.svg
 sidebar-show-symbolic.svg builder-view-left-pane-symbolic.svg
