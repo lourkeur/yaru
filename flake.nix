@@ -6,7 +6,7 @@
     inherit self inputs;
 
     outputsBuilder = channels: {
-      defaultPackage = channels.nixpkgs.callPackage ./package.nix {};
+      packages.default = channels.nixpkgs.callPackage ./package.nix {};
     };
   };
 }
