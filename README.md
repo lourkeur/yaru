@@ -15,11 +15,9 @@ theme as much as I do, you will have to overlook those.
 ## Installing
 
 Yaru Classic is available in the [NUR] under `repos.bbjubjub2494.yaru-classic`.
-
-When I get time to figure out snaps, I will offer one.  Or a `.deb` if that turns
-out to be more appropriate.  In the meantime, you will have to run `bootstrap.sh`.
-
+Debian packages are available in the [GitHub releases].
 
 [Yaru]: https://github.com/ubuntu/yaru
 [upstream-issue-2918]: https://github.com/ubuntu/yaru/issues/2918
 [NUR]: https://github.com/nix-community/NUR
+[GitHub releases]: https://github.com/bbjubjub2494/yaru-classic/releases

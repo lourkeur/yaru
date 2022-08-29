@@ -397,18 +397,26 @@ switch {
   transition: $button_transition;
   transition-property: background, border;
 
-  &, &:backdrop {
-    border-color: $_trough_color;
-    background: $_trough_color;
+  &:not(:backdrop), :backdrop &:backdrop {
+    &, :selected & {
+      border-color: $_trough_color;
+      background: $_trough_color;
+    }
 
     &:checked {
       border-color: $checkradio_bg_color;
       background: $checkradio_bg_color;
+
+      :selected & {
+        border-color: transparentize(black, $amount: .75);
+      }
     }
 
-    &:disabled {
-      border-color: $_trough_disabled_color;
-      background: $_trough_disabled_color;
+    &, :selected & {
+      &:disabled {
+        border-color: $_trough_disabled_color;
+        background: $_trough_disabled_color;
+      }
     }
   }
 
@@ -421,11 +429,25 @@ switch {
     background-clip: border-box;
   }
 
-  &, &:checked {
-    > slider {
-      border-color: $_slider_color;
-      background: $_slider_color;
-      box-shadow: $box-shadow;
+  &:not(:backdrop) {
+    &, :selected & {
+      &, &:checked {
+        > slider {
+          border-color: $_slider_color;
+          background: $_slider_color;
+          box-shadow: $box-shadow;
+        }
+      }
+  
+      &:hover {
+        &, &:checked {
+          > slider {
+            border-color: $_slider_hover_color;
+            background: $_slider_hover_color;
+            box-shadow: $box-shadow;
+          }
+        }
+      }
     }
   }
 
@@ -439,19 +461,9 @@ switch {
       }
     }
   }
-
-  &, &:hover {
-    &, &:checked {
-      > slider {
-        border-color: $_slider_hover_color;
-        background: $_slider_hover_color;
-        box-shadow: $box-shadow;
-      }
-    }
-  }
 }
 
-scale:not(.marks-after) {
+scale:not(.marks-after):not(.marks-before) {
   $box-shadow: 0 2px 2px transparentize(black, .9);
   $box-shadow-border: inset 0 0 0 1px transparentize(black, if($variant == 'light', .8, 1));
   $box-shadow-border-active: inset 0 0 0 1px $progress_border_color;
@@ -495,4 +507,14 @@ scale:not(.marks-after) {
 // and a lighter one on dark theme
 image:selected {
   background: if($variant == 'light', darken($bg_color, 10%), lighten($bg_color, 10%));
+}
+
+// Fix invisible check and radio in selected row
+check,
+radio {
+  &:checked {
+    &:selected, row:selected & {
+      border-color: rgba(0,0,0,.2);
+    }
+  }
 }
