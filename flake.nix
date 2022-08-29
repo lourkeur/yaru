@@ -8,5 +8,8 @@
     outputsBuilder = channels: {
       packages.default = channels.nixpkgs.callPackage ./package.nix {};
     };
+  
+    # Sorry I don't have Darwin machines
+    herculesCI.ciSystems = [ "x86_64-linux" "aarch64-linux" ];
   };
 }
