@@ -3,6 +3,8 @@
 This is a fork of [Yaru] to keep the original dark headerbar theme that was
 removed upstream in 21.10.1.
 
+![Files](.github/readme_pics/jammy-settings-classic.png)
+
 
 ## Known issues
 
