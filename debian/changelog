@@ -1,3 +1,61 @@
+yaru-theme (22.10.3) kinetic; urgency=medium
+
+  * dock: Sync theme with upstream d2d fixes.
+    This includes fixes coming from:
+     - https://github.com/micheleg/dash-to-dock/pull/1826
+     - https://github.com/micheleg/dash-to-dock/pull/1827
+    And more importantly:
+     - Increase apps tooltips margins
+     - Set margin for default app-running dots
+     - Remove upstream defined dash-item-container's children margin
+       (LP: #1966167)
+     - Do not add edge padding to edge elements
+     - Fix definition for dash-separator in shrink mode
+     - Take in account side margin and opposite padding in separators
+     - Explicitly use border radius and spacing from upstream
+     - Simplify dash separator definition based on upstream one
+     - Use unique function to handle padding/margin on internal children
+     - avoid computing the shrunk dash padding multiple times
+     - Use generic style generator for shrink mode too
+     - Move mixins to the top of the file for easier re-usage
+     - Use dock-container-style to define the extended cases too
+     - Support shrink and position-based style for labels
+     - Move dock specific variables to dock namespace
+     - Sync global variable definitions with upstream
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 24 Sep 2022 11:11:01 +0200
+
+yaru-theme (22.10.2) kinetic; urgency=medium
+
+  [ Muqtadir ]
+  * Add gnome-text-editor icons
+  * symbolic: folder-open
+  * Split gtksourceview/src into gtksourceview and gtksourceview-5:
+  * GS43: minor tweaks to assets
+
+  [ Paul Kepinski ]
+  * Realign edge resize cursors
+  * Change upstream gnome-todo branch
+  * Sync Gnome Shell with upstream
+  * Sync icon theme with upstream
+  * App grid arrow use wrong color
+  * Wrong quick action button color on click
+  * Sync Gnome Shell with upstream
+  * Fix uncentered cursors
+  * Sync Gnome Shell with upstream
+  * Archive Manager and Rhythmbox icon are upstream
+  * Fix wrong dock menu text color on click
+  * Update MS Office icons to 365 look
+  * Icon theme fixed shadow
+  * Fix render-bitmaps.py
+  * Tone down accents from quick settings
+  * Revert Gtk4 theme to vanilla
+
+  [ Marco Trevisan ]
+  * gtk: Optimize accent color definition taking background in account
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 16 Sep 2022 01:00:33 +0200
+
 yaru-theme (22.10.1) kinetic; urgency=medium
 
   [ Paul Kepinski ]
