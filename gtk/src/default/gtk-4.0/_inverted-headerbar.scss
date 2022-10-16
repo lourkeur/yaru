@@ -14,18 +14,11 @@ window.background.csd {
 
 headerbar {
   color: #E5E5E5; // reinsert fg_color
-
-  @import 'widgets/buttons';
-  @import 'widgets/switch';
-  @import 'widgets/scale';
-  @import 'widgets/entries';
 }
 
 windowhandle separator.vertical {
 	background: #E5E5E5;
 }
-
-@import 'widgets/header-bar';
 
 // Inverted headerbar tweaks
 headerbar {
@@ -38,11 +31,6 @@ headerbar {
       margin: 0 7px;
     }
   }
-}
-
-// Must be imported after _header-bar
-headerbar {
-  @import 'widgets/view-switcher';
 }
 
 // Reinsert tweaks
@@ -61,11 +49,6 @@ $ambiance: false;
 @import 'drawing';
 
 popover {
-  @import 'widgets/buttons';
-  @import 'widgets/switch';
-  @import 'widgets/scale';
-  @import 'widgets/entries';
-
   // Reinsert tweaks
   @import 'tweaks.scss';
 }
