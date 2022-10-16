@@ -1,6 +1,10 @@
 .quick-settings {
-  padding: 4 * $base_padding;
-  border-radius: $modal_radius*2;
+  padding: $base_padding*3;
+  border-radius: $modal_radius*2.25;
+
+  .icon-button, .button {
+    padding: $base_padding*1.75;
+  }
 }
 
 .quick-settings-grid {
@@ -10,12 +14,18 @@
 
 .quick-toggle {
   border-radius: 99px;
-  min-width: 11.5em;
-  max-width: 11.5em;
-  min-height: 48px;
+  min-width: 12em;
+  max-width: 12em;
+  min-height: 40px;
   border:none;
 
-  &:checked { @include button(default); }
+  &:checked { // Yaru change: tone down accented checked buttons
+    // Interpolate accent color saturation: less saturated colors will receive higher opacity
+    $toggle-bg-color: transparentize($selected_bg_color, 0.75 - (1 - saturation($selected_bg_color) / 100%) * .15);
+    @include button(normal, $bg: $toggle-bg-color);
+    &:hover {@include button(hover, $bg: $toggle-bg-color);}
+    &:active {@include button(active, $bg: $toggle-bg-color);}
+  }
 
   & > StBoxLayout { spacing: $base_padding; }
 
@@ -60,9 +70,11 @@
 
 .quick-toggle-menu {
   background-color: $card_bg_color;
-  border-radius: $base_border_radius*2.75;
-  padding: $base_padding*2.75;
-  margin: 0 $base_padding*2.75;
+  border-radius: $base_border_radius*3;
+  padding: $base_padding*2;
+  margin: $base_padding*2 $base_padding*3 0;
+  
+  .popup-menu-item > StIcon { -st-icon-style: symbolic; }
 
   & .header {
     spacing-rows: 0.5 * $base_padding;
@@ -74,8 +86,11 @@
       border-radius: 999px;
       padding: 1.5 * $base_padding;
       background-color: lighten($bg_color, 10%);
-
-      &.active { background-color: $selected_bg_color; }
+      
+      // Yaru change: remove active accent
+      // &.active {
+      //   background-color: $selected_bg_color;
+      // }
     }
 
     & .title {
@@ -86,11 +101,16 @@
       @extend %caption_heading;
     }
   }
+  
+  // Yaru change: fix for light theme
+  :active {
+    color: $fg_color !important;
+  }
 }
 
 .quick-toggle-menu-container {
   padding: 2 * $base_padding $base_padding 0;
- }
+}
 
 .quick-settings-system-item {
   & > StBoxLayout { spacing: 2 * $base_padding; }
