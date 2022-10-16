@@ -8,13 +8,9 @@ $variant: 'light';
 $contrast: 'normal';
 $ambiance: false;
 
-@import 'palette';
-@import 'defaults';
-@import 'functions';
 @import 'colors';
-@import 'colors-yaru';
 @import 'drawing';
 @import 'common';
-@import 'compat-colors';
 @import 'tweaks';
+@import 'colors-public';
 @import 'inverted-headerbar'; // ⚠ Must be in last position for the third, mixed theme variant
