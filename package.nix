@@ -15,7 +15,7 @@
 
 stdenv.mkDerivation rec {
   pname = "yaru-classic";
-  version = "22.10.3.1";
+  version = "23.04.1.1";
 
   src = ./.;
 
