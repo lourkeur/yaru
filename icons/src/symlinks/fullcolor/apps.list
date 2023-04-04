@@ -11,7 +11,6 @@ address-book-app.png x-office-address-book.png
 screenshot-app.png org.gnome.Screenshot.png
 backups-app.png deja-dup.png
 backups-app.png org.gnome.DejaDup.png
-backups-app.png timeshift.png
 disk-usage-app.png org.gnome.baobab.png
 calculator-app.png accessories-calculator.png
 calculator-app.png gnome-calculator.png
@@ -67,6 +66,7 @@ image-viewer-app.png eom.png
 image-viewer-app.png org.gnome.eog.png
 image-viewer-app.png multimedia-photo-viewer.png
 jockey.png cpu-x.png
+libreoffice-main.png libreoffice-startcenter.png
 log-viewer-app.png gnome-logs.png
 log-viewer-app.png logviewer.png
 log-viewer-app.png mate-system-log.png
@@ -117,7 +117,6 @@ system-monitor-app.png gnome-system-monitor.png
 system-monitor-app.png htop.png
 system-monitor-app.png org.gnome.SystemMonitor.png
 system-settings.png gnome-control-center.png
-system-settings.png preferences-desktop.png
 system-settings.png preferences-system.png
 system-settings.png org.gnome.Settings.png
 terminal-app.png bash.png
@@ -132,6 +131,7 @@ tweaks-app.png applications-system.png
 tweaks-app.png gnome-tweak-tool.png
 tweaks-app.png org.gnome.tweaks.png
 tweaks-app.png org.gnome.Tweaks.png
+tweaks-app.png preferences-desktop.png
 tweaks-app.png unity-tweak-tool.png
 usage-app.png psensor.png
 usage-app.png org.gnome.Usage.png

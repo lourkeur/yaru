@@ -1291,7 +1291,7 @@ combobox {
 
    listview {
 
-      margin: 8px 0;
+      margin: 8px;
 
       > row.activatable {
          padding: 8px;
@@ -1302,6 +1302,7 @@ combobox {
              color: $text-color;
              background-color: $menu_selected_color;
              box-shadow: none;
+             border-radius: $button_radius;
            }
          }
       }
@@ -1500,6 +1501,8 @@ headerbar {
     background-image: none;
 
     transition: $backdrop_transition;
+
+    .title { filter: opacity(.5); }
   }
 
   .title {
@@ -1649,6 +1652,14 @@ window.devel {
 /************
  * Pathbars *
  ************/
+
+pathbar scrolledwindow undershoot.left {
+  border-left: solid 1px $borders_color;
+}
+
+pathbar scrolledwindow undershoot.right {
+  border-right: solid 1px $borders_color;
+}
 
 pathbar > button {
   &.text-button, &.image-button, & {
@@ -3367,6 +3378,61 @@ columnview row:not(:selected) cell editablelabel.editing text selection {
   }
 }
 
+/********************************************************
+ * Complex Lists                                        *
+ * Put padding on the cell content so event controllers *
+ * can cover the whole area.                            *
+ ********************************************************/
+
+columnview.complex {
+  > listview > row > cell {
+      padding: 0;
+      > * {
+        padding: 8px 6px;
+      }
+  }
+
+  // shrink vertically for .data-table
+  &.data-table > listview > row > cell {
+    padding: 0;
+    > * {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+  }
+}
+
+/**********************************************************************
+ * Boxed Lists                                                        *
+ * Lists inside a rounded frame. Can be used together with .rich-list *                                     *
+ **********************************************************************/
+
+ .boxed-list {
+  border-radius: $window_radius;
+  border: 1px solid $borders_color;
+
+  > row {
+    @include focus-ring($offset: -1px);
+
+    border-bottom: 1px solid transparentize($borders_color, 0.5);
+
+    &:backdrop {
+      border-bottom-color: transparentize($backdrop_borders_color, 0.5);
+    }
+
+    &:first-child {
+      border-top-left-radius: $window_radius;
+      border-top-right-radius: $window_radius;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: $window_radius;
+      border-bottom-right-radius: $window_radius;
+      border-bottom: none;
+    }
+  }
+}
+
 /*********************
  * App Notifications *
  *********************/
@@ -3476,6 +3542,10 @@ calendar {
         @extend %selected_items;
         border-radius: 3px;
       }
+
+      &:checked {
+        background-color: gtkalpha($selected_bg_color, 0.3);
+      }
     }
 
     > label.day-number.other-month {
@@ -3540,6 +3610,36 @@ filechooser {
   }
 
   #pathbarbox { border-bottom: 1px solid $bg_color; }
+
+  gridview child {
+    border-radius: 12px;
+    margin: 12px;
+
+    &:hover {
+      background-color: gtkalpha(currentColor, .04);
+    }
+
+    &:active {
+      background-color: gtkalpha(currentColor, .08);
+    }
+
+    &:selected {
+      background-color: gtkalpha($selected_bg_color, .15);
+      color: inherit;
+    }
+
+    &:selected:hover {
+      background-color: gtkalpha($selected_bg_color, .20);
+    }
+
+    &:selected:active {
+      background-color: gtkalpha($selected_bg_color, .25);
+    }
+
+    & filethumbnail image {
+      filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+    }
+  }
 }
 
 
