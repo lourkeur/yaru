@@ -1,3 +1,8 @@
+# UNMAINTAINED
+
+## NOTICE
+Unmaintained as of 2023
+
 # Yaru Classic theme
 
 This is a fork of [Yaru] to keep the original dark headerbar theme that was
